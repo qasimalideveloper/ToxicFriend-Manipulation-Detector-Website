@@ -8,9 +8,9 @@ I made this project using HTML | CSS | JS in frontend, and python Flask and SQLI
 4. Clean Structure of the website
 
 ## Folder Structure:
-Frontend: Contains all the frontend files and assets
-Backend: Contains all the backend files includes python and sqlite database
-Admin Page: Main Admin Page from which i can see all users and their names
+Frontend: Contains all the frontend files and assets <br>
+Backend: Contains all the backend files includes python and sqlite database<br>
+Admin Page: Main Admin Page from which i can see all users and their names<br>
 
 ## Screenshots
 
