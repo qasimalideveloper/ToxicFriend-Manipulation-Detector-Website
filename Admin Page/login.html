@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Toxic Friend</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 2rem;
+        }
+        .login-card {
+            background: white;
+            border-radius: 16px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 400px;
+        }
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .login-header h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 0.5rem;
+        }
+        .login-header p {
+            color: #718096;
+            font-size: 0.875rem;
+        }
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .form-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #4a5568;
+        }
+        .form-input {
+            padding: 0.75rem 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .login-btn {
+            padding: 0.75rem 1.5rem;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .login-btn:hover {
+            background: #5568d3;
+        }
+        .login-btn:disabled {
+            background: #cbd5e0;
+            cursor: not-allowed;
+        }
+        .error-message {
+            background: #fed7d7;
+            color: #c53030;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            display: none;
+        }
+        .error-message.show {
+            display: block;
+        }
+        .api-url-section {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e2e8f0;
+        }
+        .api-url-section label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #4a5568;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        .api-url-section input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h1>Admin Login</h1>
+                <p>Toxic Friend Dashboard</p>
+            </div>
+            
+            <div class="error-message" id="error-message"></div>
+            
+            <form class="login-form" id="login-form">
+                <div class="form-group">
+                    <label class="form-label" for="username">Username</label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        class="form-input" 
+                        placeholder="Enter username"
+                        required
+                        autocomplete="username"
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        class="form-input" 
+                        placeholder="Enter password"
+                        required
+                        autocomplete="current-password"
+                    >
+                </div>
+                
+                <button type="submit" class="login-btn" id="login-btn">Login</button>
+            </form>
+            
+            <div class="api-url-section">
+                <label for="api-url">API Base URL (Optional)</label>
+                <input 
+                    type="url" 
+                    id="api-url" 
+                    placeholder="https://toxicfriend.pythonanywhere.com"
+                    autocomplete="off"
+                >
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const DEFAULT_API_URL = "https://toxicfriend.pythonanywhere.com";
+        const STORAGE_KEY = "adminDashboardApiUrl";
+        const AUTH_STORAGE_KEY = "adminAuthenticated";
+
+        // Check if already authenticated
+        if (sessionStorage.getItem(AUTH_STORAGE_KEY) === "true") {
+            window.location.href = "index.html";
+        }
+
+        // Get API URL from storage or default
+        const storedApiUrl = localStorage.getItem(STORAGE_KEY);
+        const apiUrlInput = document.getElementById("api-url");
+        if (storedApiUrl) {
+            apiUrlInput.value = storedApiUrl;
+        } else {
+            apiUrlInput.value = DEFAULT_API_URL;
+        }
+
+        const loginForm = document.getElementById("login-form");
+        const loginBtn = document.getElementById("login-btn");
+        const errorMessage = document.getElementById("error-message");
+
+        loginForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            
+            const username = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value.trim();
+            const apiUrl = apiUrlInput.value.trim() || DEFAULT_API_URL;
+
+            if (!username || !password) {
+                showError("Please enter both username and password");
+                return;
+            }
+
+            // Save API URL
+            localStorage.setItem(STORAGE_KEY, apiUrl);
+
+            loginBtn.disabled = true;
+            loginBtn.textContent = "Logging in...";
+            errorMessage.classList.remove("show");
+
+            try {
+                const response = await fetch(`${apiUrl}/api/admin/authenticate`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ username, password }),
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Set authentication flag
+                    sessionStorage.setItem(AUTH_STORAGE_KEY, "true");
+                    // Redirect to dashboard
+                    window.location.href = "index.html";
+                } else {
+                    showError(data.error || "Invalid username or password");
+                    loginBtn.disabled = false;
+                    loginBtn.textContent = "Login";
+                }
+            } catch (error) {
+                showError("Failed to connect to server. Please check your API URL.");
+                loginBtn.disabled = false;
+                loginBtn.textContent = "Login";
+                console.error("Login error:", error);
+            }
+        });
+
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.classList.add("show");
+        }
+    </script>
+</body>
+</html>
+

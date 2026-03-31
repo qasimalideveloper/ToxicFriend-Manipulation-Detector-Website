@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toxic Friend Admin Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-shell">
+        <header class="app-header">
+            <div>
+                <p class="eyebrow">Toxic Friend</p>
+                <h1>Admin Dashboard</h1>
+                <p class="subtitle">Review recent logins and feedback submissions in one place.</p>
+            </div>
+            <div class="header-actions">
+                <label class="api-label" for="api-url-input">API Base URL</label>
+                <div class="api-input-wrapper">
+                    <input id="api-url-input" type="url" placeholder="https://your-backend.example" autocomplete="off">
+                    <button id="api-save-btn" type="button" class="primary-btn">Apply</button>
+                </div>
+                <button id="logout-btn" type="button" class="ghost-btn" style="margin-left: 1rem;">Logout</button>
+            </div>
+        </header>
+
+        <main class="dashboard-grid">
+            <section class="panel">
+                <div class="panel-header">
+                    <div>
+                        <h2>Recent Logins</h2>
+                        <p class="panel-subtitle">Names captured from the main experience.</p>
+                    </div>
+                    <div class="panel-actions">
+                        <button id="refresh-logins-btn" class="ghost-btn" type="button">Refresh</button>
+                        <span id="logins-count" class="badge">0</span>
+                    </div>
+                </div>
+                <div id="logins-empty" class="empty-state">
+                    <p>No logins recorded yet.</p>
+                </div>
+                <div class="table-wrapper" id="logins-table-wrapper" hidden>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Timestamp (UTC)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="logins-table-body"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="panel">
+                <div class="panel-header">
+                    <div>
+                        <h2>Feedback</h2>
+                        <p class="panel-subtitle">Star ratings and comments submitted by users.</p>
+                    </div>
+                    <div class="panel-actions">
+                        <button id="refresh-feedback-btn" class="ghost-btn" type="button">Refresh</button>
+                        <span id="feedback-count" class="badge">0</span>
+                    </div>
+                </div>
+                <div id="feedback-empty" class="empty-state">
+                    <p>No feedback received yet.</p>
+                </div>
+                <div class="feedback-list" id="feedback-list" hidden></div>
+            </section>
+        </main>
+    </div>
+
+    <div id="toast-container"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
+

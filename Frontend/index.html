@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, interactive-widget=resizes-content">
+    
+    <meta name="google-site-verification" content="gq2L8sHcysCDaPVqzr4tBKED9ItWa45esK9OpqnQFEg" />
+    <meta name="google-adsense-account" content="ca-pub-1428478300015491">
+
+    <!-- Favicon (must be early for browser compatibility) -->
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="robots" content="index, follow">
+    
+    <!-- Primary Meta Tags -->
+    <title>Toxic Friend | Practice Handling Difficult Conversations Safely</title>
+    <meta name="title" content="Toxic Friend | Practice Handling Difficult Conversations Safely">
+    <meta name="description" content="Learn to recognize manipulation tactics and practice healthy communication in a safe, AI-powered environment. Build confidence in challenging conversations.">
+    <meta name="keywords" content="toxic friend, manipulation detection, difficult conversations, communication practice, AI chat, relationship advice, gaslighting, guilt tripping, emotional manipulation">
+    <meta name="author" content="Impoverse">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://toxicfriend.netlify.app/">
+    <meta property="og:title" content="Toxic Friend | Practice Handling Difficult Conversations Safely">
+    <meta property="og:description" content="Learn to recognize manipulation tactics and practice healthy communication in a safe, AI-powered environment. Build confidence in challenging conversations.">
+    <meta property="og:image" content="https://toxicfriend.netlify.app/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Toxic Friend - AI Chat Experience for Practicing Difficult Conversations">
+    <meta property="og:site_name" content="Toxic Friend">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://toxicfriend.netlify.app/">
+    <meta name="twitter:title" content="Toxic Friend | Practice Handling Difficult Conversations Safely">
+    <meta name="twitter:description" content="Learn to recognize manipulation tactics and practice healthy communication in a safe, AI-powered environment.">
+    <meta name="twitter:image" content="https://toxicfriend.netlify.app/assets/og-image.png">
+    <meta name="twitter:image:alt" content="Toxic Friend - AI Chat Experience">
+    <meta name="twitter:creator" content="@impoverse">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#FF6B6B">
+    <meta name="msapplication-TileColor" content="#FF6B6B">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        // Apply accent color immediately to prevent flash of default color
+        (function() {
+            const ACCENT_OPTIONS = {
+                rose: { name: "Rose", color: "#FF6B6B", hover: "#FF8E72", rgb: "255, 107, 107" },
+                amber: { name: "Amber", color: "#FF9F43", hover: "#FFB870", rgb: "255, 159, 67" },
+                mint: { name: "Mint", color: "#34D399", hover: "#6EE7B7", rgb: "52, 211, 153" },
+                aqua: { name: "Aqua", color: "#38BDF8", hover: "#7DD3FC", rgb: "56, 189, 248" },
+                violet: { name: "Violet", color: "#A78BFA", hover: "#C4B5FD", rgb: "167, 139, 250" },
+                indigo: { name: "Indigo", color: "#6366F1", hover: "#818CF8", rgb: "99, 102, 241" },
+            };
+            
+            function hexToRgbString(hexColor) {
+                if (!hexColor) return "255, 107, 107";
+                let hex = hexColor.replace("#", "");
+                if (hex.length === 3) {
+                    hex = hex.split("").map((char) => char + char).join("");
+                }
+                const value = parseInt(hex, 16);
+                const r = (value >> 16) & 255;
+                const g = (value >> 8) & 255;
+                const b = value & 255;
+                return `${r}, ${g}, ${b}`;
+            }
+            
+            const savedAccent = localStorage.getItem('userAccent') || 'rose';
+            const savedTheme = localStorage.getItem('userTheme') || 'dark';
+            const preset = ACCENT_OPTIONS[savedAccent] || ACCENT_OPTIONS.rose;
+            const rgbValue = preset.rgb || hexToRgbString(preset.color);
+            
+            // Set on root
+            document.documentElement.style.setProperty('--accent', preset.color);
+            document.documentElement.style.setProperty('--accent-hover', preset.hover || preset.color);
+            document.documentElement.style.setProperty('--accent-rgb', rgbValue);
+            
+            // Also set on body to ensure it overrides body.light selector
+            if (document.body) {
+                document.body.style.setProperty('--accent', preset.color);
+                document.body.style.setProperty('--accent-hover', preset.hover || preset.color);
+                document.body.style.setProperty('--accent-rgb', rgbValue);
+            }
+        })();
+    </script>
+</head>
+<body>
+    <div id="app">
+        <!-- Left Sidebar - ChatGPT Style -->
+        <div id="left-sidebar" class="left-sidebar">
+            <div class="sidebar-brand">
+                <span class="brand-text">Toxic Friend</span>
+                <div class="sidebar-brand-actions">
+                    <button class="sidebar-settings-icon" id="settings-btn" aria-label="Open Settings">
+                        <svg width="16" height="16" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
+                            <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="sidebar-nav">
+                <button class="sidebar-btn" id="nav-chat">
+                    <span class="sidebar-icon-circle" aria-hidden="true">💬</span>
+                    <span class="sidebar-text">New Chat</span>
+                </button>
+                <button class="sidebar-btn" id="nav-analyzer">
+                    <span class="sidebar-icon-circle" aria-hidden="true">🧠</span>
+                    <span class="sidebar-text">Manipulation Detector</span>
+                </button>
+                <button class="sidebar-btn" id="nav-feedback">
+                    <span class="sidebar-icon-circle" aria-hidden="true">⭐</span>
+                    <span class="sidebar-text">Feedback</span>
+                </button>
+            </div>
+            
+            <!-- Chat History Content (shown when History is clicked) -->
+            <div class="sidebar-history" id="sidebar-content">
+                <div class="history-header">
+                    <h3>Chat History</h3>
+                </div>
+                <div class="history-list">
+                    <p class="no-chats">No saved chats yet</p>
+                </div>
+            </div>
+            
+            <!-- User Info at Bottom -->
+            <div class="sidebar-user" id="user-name-display" style="display: none;">
+                <div class="user-meta">
+                    <div class="user-pill">
+                        <span class="user-greeting">👋</span>
+                    </div>
+                    <div class="user-info">
+                        <span class="user-name-text"></span>
+                        <span class="user-status-text" id="user-status-text">Ready when you are</span>
+                    </div>
+                </div>
+                <span class="user-agency-divider"></span>
+                <span class="user-agency-credit">Made by <strong>Impoverse</strong></span>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="mobile-menu-toggle" id="menu-btn">☰</button>
+
+        <!-- Legacy compatibility elements (hidden) -->
+        <div id="nav-bar" class="nav-bar" style="display: none;"></div>
+        <div id="main-menu" class="main-menu"></div>
+
+        <!-- Main Content Area -->
+        <div id="main-content" class="main-content">
+            <!-- Welcome Onboarding Flow (shown once) -->
+            <div id="welcome-flow" class="step">
+                <div class="welcome-container">
+                    <div class="welcome-slide active" id="slide-1">
+                        <div class="welcome-content">
+                            <div class="welcome-emoji">😔</div>
+                            <h1 class="welcome-title">Have you ever felt terrible</h1>
+                            <h2 class="welcome-subtitle">when a friend's mood suddenly shifts?</h2>
+                            <p class="welcome-description">Even when they're usually great, their bad days somehow make you feel anxious and guilty...</p>
+                        </div>
+                        <div class="welcome-controls">
+                            <button class="welcome-skip" id="welcome-skip">Skip</button>
+                            <button class="welcome-next" id="welcome-next-1">Next</button>
+                        </div>
+                    </div>
+
+                    <div class="welcome-slide" id="slide-2">
+                        <div class="welcome-content">
+                            <div class="welcome-emoji">🤔</div>
+                            <h1 class="welcome-title">Ever questioned yourself</h1>
+                            <h2 class="welcome-subtitle">after a conversation with someone close?</h2>
+                            <p class="welcome-description">Sometimes certain people make you doubt your own feelings and memories...</p>
+                        </div>
+                        <div class="welcome-controls">
+                            <button class="welcome-skip" id="welcome-skip-2">Skip</button>
+                            <button class="welcome-next" id="welcome-next-2">Next</button>
+                        </div>
+                    </div>
+
+                    <div class="welcome-slide" id="slide-3">
+                        <div class="welcome-content">
+                            <div class="welcome-emoji">💪</div>
+                            <h1 class="welcome-title">Practice handling</h1>
+                            <h2 class="welcome-subtitle">difficult conversations safely</h2>
+                            <p class="welcome-description">Learn to recognize manipulation tactics and practice healthy communication in a safe, AI-powered environment.</p>
+                        </div>
+                        <div class="welcome-controls">
+                            <button class="welcome-skip" id="welcome-skip-3">Skip</button>
+                            <button class="welcome-start" id="welcome-start">Get Started</button>
+                        </div>
+                    </div>
+                    
+                    <div class="welcome-dots">
+                        <span class="dot active" data-slide="1"></span>
+                        <span class="dot" data-slide="2"></span>
+                        <span class="dot" data-slide="3"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Name Step -->
+            <div id="name-step" class="step">
+                <div class="step-container">
+                    <div class="logo">Toxic Friend</div>
+                    <h1 class="step-title">Welcome</h1>
+                    <p class="step-subtitle">What's your name?</p>
+                    <div class="name-input-container">
+                        <input type="text" id="user-name-input" class="name-input" placeholder="Enter your name" maxlength="20" autocomplete="off">
+                        <button class="start-btn" id="name-continue-btn">Continue</button>
+                    </div>
+                <div class="avatar-selection">
+                    <div class="avatar-selection-header">
+                        <p class="avatar-selection-title">Choose your avatar</p>
+                    </div>
+                    <div class="avatar-grid" id="avatar-grid" role="listbox" aria-label="Choose your avatar" data-avatar-grid="onboarding"></div>
+                </div>
+                </div>
+            </div>
+
+            <!-- Theme Step -->
+            <div id="theme-step" class="step">
+                <button class="back-btn" data-back-to="name-step"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M15 18l-6-6 6-6"/>
+  </svg></button>
+                <div class="step-container">
+                    <div class="logo">Toxic Friend</div>
+                    <h1 class="step-title">Choose Theme</h1>
+                    <p class="step-subtitle">Match Cursor’s vibe with a live preview</p>
+                    <div class="theme-picker">
+                        <div class="theme-option-grid" role="radiogroup" aria-label="Interface theme">
+                            <button type="button" class="theme-option-card" data-theme="dark" aria-pressed="false">
+                                <div class="theme-option-header">
+                                    <span class="theme-option-label">Dark</span>
+                                    <span class="theme-option-indicator" aria-hidden="true"></span>
+                                </div>
+                                <div class="theme-option-preview theme-option-preview-dark" aria-hidden="true">
+                                    <div class="preview-toolbar">
+                                        <span></span><span></span><span></span>
+                                    </div>
+                                    <div class="preview-body">
+                                        <div class="preview-sidebar"></div>
+                                        <div class="preview-content">
+                                            <div class="preview-line short"></div>
+                                            <div class="preview-line"></div>
+                                            <div class="preview-card"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="theme-option-desc">Low-glare workspace</p>
+                            </button>
+                            <button type="button" class="theme-option-card" data-theme="light" aria-pressed="false">
+                                <div class="theme-option-header">
+                                    <span class="theme-option-label">Light</span>
+                                    <span class="theme-option-indicator" aria-hidden="true"></span>
+                                </div>
+                                <div class="theme-option-preview theme-option-preview-light" aria-hidden="true">
+                                    <div class="preview-toolbar">
+                                        <span></span><span></span><span></span>
+                                    </div>
+                                    <div class="preview-body">
+                                        <div class="preview-sidebar"></div>
+                                        <div class="preview-content">
+                                            <div class="preview-line short"></div>
+                                            <div class="preview-line"></div>
+                                            <div class="preview-card"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="theme-option-desc">Bright & clear panels</p>
+                            </button>
+                        </div>
+
+                        <button class="start-btn theme-continue-btn" id="theme-continue-btn" disabled>Continue</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gender Step -->
+            <div id="gender-step" class="step">
+                <div class="step-container">
+                    <div class="logo">Toxic Friend</div>
+                    <h1 class="step-title">Choose Friend</h1>
+                    <p class="step-subtitle">Who would you like to talk to?</p>
+                    <div class="options-grid two-col">
+                        <button class="option-card" data-gender="male">
+                            <div class="option-icon">👨🏻</div>
+                            <div class="option-label">Alex</div>
+                            <div class="option-desc">Male friend</div>
+                        </button>
+                        <button class="option-card" data-gender="female">
+                            <div class="option-icon">👩🏻</div>
+                            <div class="option-label">Sarah</div>
+                            <div class="option-desc">Female friend</div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fault Step -->
+            <div id="fault-step" class="step">
+                <button class="back-btn" data-back-to="gender-step"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M15 18l-6-6 6-6"/>
+  </svg></button>
+                <div class="step-container">
+                    <div class="logo">Toxic Friend</div>
+                    <h1 class="step-title">Who's At Fault?</h1>
+                    <p class="step-subtitle">Choose the situation context</p>
+                    <div class="options-grid two-col">
+                        <button class="option-card" data-fault="you">
+                            <div class="option-icon">😣</div>
+                            <div class="option-label">I Did Wrong</div>
+                            <div class="option-desc">My mistake</div>
+                        </button>
+                        <button class="option-card" data-fault="them">
+                            <div class="option-icon">😠</div>
+                            <div class="option-label">They Did Wrong</div>
+                            <div class="option-desc">Their fault</div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scenario Step -->
+            <div id="scenario-step" class="step">
+                <button class="back-btn" data-back-to="fault-step"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M15 18l-6-6 6-6"/>
+  </svg></button>
+                <div class="step-container wide scenario-down">
+                    <div class="logo">Toxic Friend</div>
+                    <h1 class="step-title">Pick Scenario</h1>
+                    <p class="step-subtitle" id="scenario-subtitle">Select your situation</p>
+                    <div class="scenario-grid" id="scenario-grid">
+                        <!-- Scenarios will be dynamically populated -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Story Step -->
+            <div id="story-step" class="step">
+                <button class="back-btn" data-back-to="scenario-step"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M15 18l-6-6 6-6"/>
+  </svg></button>
+                <div class="step-container wide">
+                    <div class="logo">Toxic Friend</div>
+                    <h1 class="step-title">Your Story</h1>
+                    <p class="step-subtitle">Here's the situation</p>
+                    <div class="story-container">
+                        <div class="story-box">
+                            <div class="story-icon">📖</div>
+                            <p class="story-text" id="story-text"></p>
+                        </div>
+                        <button class="start-btn" id="story-continue-btn">Continue</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Toxicity Step -->
+            <div id="toxicity-step" class="step">
+                <button class="back-btn" data-back-to="story-step"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M15 18l-6-6 6-6"/></svg></button>
+                <div class="step-container">
+                    <div class="logo">Toxic Friend</div>
+                    <h1 class="step-title">Set Toxicity</h1>
+                    <p class="step-subtitle">How toxic and manipulative should they be?</p>
+                    <div class="toxicity-container">
+                        <div class="toxicity-display">
+                            <div class="toxicity-emoji-big" id="toxicity-emoji-big">—</div>
+                            <div class="toxicity-info">
+                                <div class="toxicity-value" id="toxicity-value">50</div>
+                                <div class="toxicity-label" id="toxicity-label">Moderately Upset</div>
+                            </div>
+                        </div>
+                        <div class="slider-wrapper">
+                            <input 
+                                type="range" 
+                                id="toxicity-slider" 
+                                class="toxicity-slider" 
+                                min="0" 
+                                max="100" 
+                                value="50"
+                            >
+                            <div class="slider-markers">
+                                <span>Calm</span>
+                                <span>Medium</span>
+                                <span>Intense</span>
+                            </div>
+                        </div>
+                        <button class="start-btn" id="start-chat-btn">Start Chat</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Step -->
+            <div id="chat-step" class="step">
+                <div class="chat-wrapper">
+                    <div class="chat-header">
+                        <button class="chat-back-btn" id="chat-back-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M15 18l-6-6 6-6"/>
+  </svg></button>
+                        <div class="chat-user-info">
+                            <div class="chat-avatar" id="chat-avatar">•</div>
+                            <div class="chat-user-details" role="heading" aria-level="2">
+                                <div class="chat-friend-name" id="chat-friend-name">Friend</div>
+                                <div class="chat-status">Online</div>
+                            </div>
+                        </div>
+                        <div class="chat-header-actions">
+                            <button class="chat-menu-btn" id="chat-menu-btn" aria-label="Chat options" aria-expanded="false" aria-controls="chat-dropdown-menu">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="10" cy="4" r="1.5" fill="currentColor"/>
+                                    <circle cx="10" cy="10" r="1.5" fill="currentColor"/>
+                                    <circle cx="10" cy="16" r="1.5" fill="currentColor"/>
+                                </svg>
+                            </button>
+                            <div class="chat-dropdown-menu" id="chat-dropdown-menu" role="menu" aria-hidden="true">
+                                <button class="dropdown-item" id="dropdown-review-btn" role="menuitem">
+                                    <span class="dropdown-icon">◈</span>
+                                    <span class="dropdown-text">Review Chat</span>
+                                </button>
+                                <button class="dropdown-item" id="dropdown-toxicity-btn" role="menuitem">
+                                    <span class="dropdown-icon">🎚️</span>
+                                    <span class="dropdown-text">Toxicity Level</span>
+                                    <span class="dropdown-badge" id="dropdown-toxicity-badge">50</span>
+                                </button>
+                                <button class="dropdown-item" id="dropdown-story-btn" role="menuitem">
+                                    <span class="dropdown-icon">📖</span>
+                                    <span class="dropdown-text">View Story</span>
+                                </button>
+                                <div class="dropdown-divider"></div>
+                                <button class="dropdown-item dropdown-item-danger" id="dropdown-close-btn" role="menuitem">
+                                    <span class="dropdown-icon">×</span>
+                                    <span class="dropdown-text">Close Chat</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Story Banner -->
+                    <div class="story-banner collapsed" id="story-banner" style="display: none;">
+                        <div class="story-banner-header" id="story-banner-header">
+                            <div class="story-banner-icon">📖</div>
+                            <span class="story-banner-preview">Story</span>
+                            <button class="story-toggle-btn" id="story-toggle-btn" aria-label="Toggle story">
+                                <svg class="story-toggle-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="story-banner-content">
+                            <p class="story-banner-text" id="story-banner-text"></p>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-messages" id="chat-messages">
+                    </div>
+                    <div class="chat-input-bar">
+                        <button class="emoji-btn toxicity-btn" id="emoji-btn" title="Add Emoji">
+                            😊
+                        </button>
+                        <button class="toxicity-btn" id="toxicity-adjust-btn" title="Adjust Toxicity">
+                            🎚️
+                        </button>
+                        <div class="chat-input-wrapper">
+                            <input 
+                                type="text" 
+                                id="chat-input" 
+                                class="chat-input" 
+                                placeholder="Type your message"
+                                autocomplete="off"
+                            >
+                            <div class="emoji-picker-container" id="emoji-picker">
+                                <div class="emoji-picker-header">Choose an Emotion</div>
+                                <div class="emoji-categories-grid">
+                                    <button class="emoji-category-btn" data-category="happy">
+                                        <span class="category-emoji">😊</span>
+                                        <span class="category-label">Happy</span>
+                                    </button>
+                                    <button class="emoji-category-btn" data-category="sad">
+                                        <span class="category-emoji">😢</span>
+                                        <span class="category-label">Sad</span>
+                                    </button>
+                                    <button class="emoji-category-btn" data-category="angry">
+                                        <span class="category-emoji">😠</span>
+                                        <span class="category-label">Angry</span>
+                                    </button>
+                                    <button class="emoji-category-btn" data-category="love">
+                                        <span class="category-emoji">❤️</span>
+                                        <span class="category-label">Love</span>
+                                    </button>
+                                    <button class="emoji-category-btn" data-category="excited">
+                                        <span class="category-emoji">🎉</span>
+                                        <span class="category-label">Excited</span>
+                                    </button>
+                                    <button class="emoji-category-btn" data-category="confuse">
+                                        <span class="category-emoji">🤔</span>
+                                        <span class="category-label">Confuse</span>
+                                    </button>
+                                    <button class="emoji-category-btn" data-category="laugh">
+                                        <span class="category-emoji">😂</span>
+                                        <span class="category-label">Laugh</span>
+                                    </button>
+                                    <button class="emoji-category-btn" data-category="cool">
+                                        <span class="category-emoji">😎</span>
+                                        <span class="category-label">Cool</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-input-actions">
+                            <button class="voice-btn" id="voice-btn" style="display: flex;" title="Voice Input">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                                    <line x1="12" y1="19" x2="12" y2="23"></line>
+                                    <line x1="8" y1="23" x2="16" y2="23"></line>
+                                </svg>
+                            </button>
+                            <button class="send-btn" id="send-btn" style="display: none;" title="Send Message">
+                                <svg class="send-icon" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" fill="currentColor"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analyzer Step -->
+            <div id="analyzer-step" class="step">
+                <button class="back-btn" data-back-to="theme-step"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M15 18l-6-6 6-6"/>
+  </svg></button>
+                <div class="step-container wide">
+                    <div class="logo">Toxic Friend</div>
+                    <h1 class="step-title">Message Analyzer</h1>
+                    <p class="step-subtitle">Analyze text for manipulation patterns</p>
+                    <div class="analyzer-container">
+                        <textarea 
+                            id="analyzer-input" 
+                            class="analyzer-input" 
+                            placeholder="Paste a message to analyze&#10;&#10;Example: 'After everything I did for you, this is how you repay me?'"
+                            rows="6"
+                        ></textarea>
+                        <button class="start-btn" id="analyze-btn">Analyze</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feedback Step -->
+            <div id="feedback-step" class="step">
+                <button class="back-btn" data-back-to="chat-step"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M15 18l-6-6 6-6"/>
+  </svg></button>
+                <div class="step-container wide feedback-layout">
+                    <div class="logo">Toxic Friend</div>
+                    <h1 class="step-title">We'd Love Your Feedback</h1>
+                    <p class="step-subtitle">Share how we can make Toxic Friend even better.</p>
+                    <div class="feedback-card">
+                        <div class="feedback-rating-group">
+                            <div class="feedback-rating-header">
+                                <div>
+                                    <p class="feedback-label">Rate your experience</p>
+                                    <!-- <p class="feedback-hint">Select between 1 and 5 stars</p> -->
+                                </div>
+                                <span class="feedback-rating-value" id="feedback-rating-value">No rating yet</span>
+                            </div>
+                            <div class="feedback-stars" role="radiogroup" aria-label="Feedback rating">
+                                <button type="button" class="feedback-star" data-value="1" aria-label="1 star" aria-pressed="false">★</button>
+                                <button type="button" class="feedback-star" data-value="2" aria-label="2 stars" aria-pressed="false">★</button>
+                                <button type="button" class="feedback-star" data-value="3" aria-label="3 stars" aria-pressed="false">★</button>
+                                <button type="button" class="feedback-star" data-value="4" aria-label="4 stars" aria-pressed="false">★</button>
+                                <button type="button" class="feedback-star" data-value="5" aria-label="5 stars" aria-pressed="false">★</button>
+                            </div>
+                        </div>
+                        <div class="feedback-form-group">
+                            <label class="feedback-label" for="feedback-message">Tell us more (Optional)</label>
+                            <textarea id="feedback-message" class="feedback-input" rows="4" placeholder="Share what you loved, what felt confusing, or any feature ideas."></textarea>
+                        </div>
+                        <div class="feedback-actions">
+                            <button type="button" class="start-btn feedback-submit" id="feedback-submit">Send Feedback</button>
+                        </div>
+                        <p class="feedback-credit">Trusted conversational practice by <strong>Impoverse</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review Step -->
+            <div id="review-step" class="step">
+                <button class="back-btn" id="review-back-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M15 18l-6-6 6-6"/>
+  </svg></button>
+                <div class="step-container wide review-down">
+                    <div class="logo">Toxic Friend</div>
+                    <h1 class="step-title">Chat Review</h1>
+                    <p class="step-subtitle">How did you handle the conversation?</p>
+                    <div class="review-container">
+                        <div class="review-stats">
+                            <div class="stat-card">
+                                <div class="stat-icon">💬</div>
+                                <div class="stat-value" id="review-messages">0</div>
+                                <div class="stat-label">Messages</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">😊</div>
+                                <div class="stat-value" id="review-mood">Neutral</div>
+                                <div class="stat-label">Final Mood</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">🎯</div>
+                                <div class="stat-value" id="review-handling">0%</div>
+                                <div class="stat-label">Score</div>
+                            </div>
+                        </div>
+                        <div class="review-feedback" id="review-feedback"></div>
+                        <button class="start-btn" id="new-chat-btn">New Chat</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Step -->
+            <div id="settings-step" class="step">
+                <div class="step-container wide">
+                    <div class="logo">Toxic Friend</div>
+                    <h1 class="step-title">Settings</h1>
+                    <p class="step-subtitle">Adjust your experience</p>
+                    <div class="settings-card">
+                        <div class="settings-section">
+                            <label class="settings-label" for="settings-name-input">Display Name</label>
+                            <p class="settings-helper">This name appears in the sidebar and chat summaries.</p>
+                            <input type="text" id="settings-name-input" class="name-input" maxlength="20" autocomplete="off" placeholder="Enter your name">
+                        </div>
+                        <div class="settings-section">
+                            <label class="settings-label">Theme</label>
+                            <p class="settings-helper">Match Cursor's vibe with a live preview</p>
+                            <div class="theme-picker settings-theme-picker">
+                                <div class="theme-option-grid" role="radiogroup" aria-label="Interface theme">
+                                    <button type="button" class="theme-option-card" data-settings-theme="dark" aria-pressed="false">
+                                        <div class="theme-option-header">
+                                            <span class="theme-option-label">Dark</span>
+                                            <span class="theme-option-indicator" aria-hidden="true"></span>
+                                        </div>
+                                        <div class="theme-option-preview theme-option-preview-dark" aria-hidden="true">
+                                            <div class="preview-toolbar">
+                                                <span></span><span></span><span></span>
+                                            </div>
+                                            <div class="preview-body">
+                                                <div class="preview-sidebar"></div>
+                                                <div class="preview-content">
+                                                    <div class="preview-line short"></div>
+                                                    <div class="preview-line"></div>
+                                                    <div class="preview-card"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p class="theme-option-desc">Low-glare workspace</p>
+                                    </button>
+                                    <button type="button" class="theme-option-card" data-settings-theme="light" aria-pressed="false">
+                                        <div class="theme-option-header">
+                                            <span class="theme-option-label">Light</span>
+                                            <span class="theme-option-indicator" aria-hidden="true"></span>
+                                        </div>
+                                        <div class="theme-option-preview theme-option-preview-light" aria-hidden="true">
+                                            <div class="preview-toolbar">
+                                                <span></span><span></span><span></span>
+                                            </div>
+                                            <div class="preview-body">
+                                                <div class="preview-sidebar"></div>
+                                                <div class="preview-content">
+                                                    <div class="preview-line short"></div>
+                                                    <div class="preview-line"></div>
+                                                    <div class="preview-card"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p class="theme-option-desc">Bright & clear panels</p>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="settings-section">
+                            <label class="settings-label">Avatar</label>
+                            <p class="settings-helper">Choose the vibe that represents you.</p>
+                            <div class="settings-avatar-grid avatar-grid" role="listbox" aria-label="Choose your avatar" data-avatar-grid="settings"></div>
+                        </div>
+                        <div class="settings-actions">
+                            <button type="button" class="start-btn" id="settings-save-btn" style="display: none;">Save Changes</button>
+                        </div>
+                        <p class="settings-feedback" id="settings-feedback" role="status" aria-live="polite"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Analyzer Modal -->
+    <div id="analyzer-modal" class="analyzer-modal">
+        <div class="analyzer-modal-content">
+            <div class="analyzer-modal-header">
+                <h2>Analysis Results</h2>
+                <button class="analyzer-close-btn" id="analyzer-close-btn">×</button>
+            </div>
+            <div class="analyzer-modal-body" id="analyzer-modal-body">
+                <div class="analysis-loading" id="analysis-loading" aria-live="polite">
+                    <div class="analysis-loading-core">
+                        <div class="analysis-loader" aria-hidden="true"></div>
+                        <div class="analysis-loading-text">Analyzing</div>
+                        <p class="analysis-loading-subtext">Detecting manipulation patterns...</p>
+                    </div>
+                </div>
+                <div class="analysis-results" id="analysis-results">
+                    <div class="toxicity-score-display">
+                        <div class="score-circle" id="score-circle">
+                            <svg class="score-ring" width="120" height="120">
+                                <circle class="score-ring-background" cx="60" cy="60" r="52"></circle>
+                                <circle class="score-ring-progress" id="score-ring-progress" cx="60" cy="60" r="52"></circle>
+                            </svg>
+                            <div class="score-content">
+                                <div class="score-value" id="analyzer-score">0%</div>
+                                <div class="score-label">Toxicity</div>
+                            </div>
+                        </div>
+                        <div class="score-interpretation" id="score-interpretation"></div>
+                    </div>
+                    <div class="analyzed-text-container">
+                        <div class="color-legend">
+                            <h4>Manipulation Types</h4>
+                            <div class="legend-items">
+                                <div class="legend-item"><div class="legend-color manipulation-gaslighting"></div><span>Gaslighting</span></div>
+                                <div class="legend-item"><div class="legend-color manipulation-guilt"></div><span>Guilt Tripping</span></div>
+                                <div class="legend-item"><div class="legend-color manipulation-victim"></div><span>Victim Playing</span></div>
+                                <div class="legend-item"><div class="legend-color manipulation-silent"></div><span>Silent Treatment</span></div>
+                                <div class="legend-item"><div class="legend-color manipulation-love"></div><span>Love Bombing</span></div>
+                                <div class="legend-item"><div class="legend-color manipulation-passive"></div><span>Passive Aggression</span></div>
+                                <div class="legend-item"><div class="legend-color manipulation-minimize"></div><span>Minimization</span></div>
+                                <div class="legend-item"><div class="legend-color manipulation-general"></div><span>Generalization</span></div>
+                                <div class="legend-item"><div class="legend-color manipulation-threat"></div><span>Veiled Threats</span></div>
+                                <div class="legend-item"><div class="legend-color manipulation-consensus"></div><span>False Consensus</span></div>
+                                <div class="legend-item"><div class="legend-color manipulation-blame"></div><span>Blame Shifting</span></div>
+                                <div class="legend-item"><div class="legend-color manipulation-conditional"></div><span>Conditional Affection</span></div>
+                                <div class="legend-item"><div class="legend-color manipulation-urgency"></div><span>Urgency/Pressure</span></div>
+                            </div>
+                        </div>
+                        <h3>Message Analysis</h3>
+                        <div class="analyzed-text" id="analyzed-text"></div>
+                    </div>
+                    <div class="manipulation-tactics" id="manipulation-tactics">
+                        <h3>Detected Tactics</h3>
+                        <div id="manipulation-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toxicity Adjustment Modal -->
+    <div id="toxicity-modal" class="toxicity-modal">
+        <div class="toxicity-modal-content">
+            <button class="toxicity-modal-close" id="toxicity-modal-close">×</button>
+            <div class="toxicity-modal-header">
+                <h2>Adjust Toxicity Level</h2>
+                <p>Change how dramatic they should be in this conversation</p>
+            </div>
+            <div class="toxicity-container">
+                <div class="toxicity-display">
+                    <div class="toxicity-emoji-big" id="modal-toxicity-emoji">—</div>
+                    <div class="toxicity-info">
+                        <div class="toxicity-value" id="modal-toxicity-value">50</div>
+                        <div class="toxicity-label" id="modal-toxicity-label">Moderately Upset</div>
+                    </div>
+                </div>
+                <div class="slider-wrapper">
+                    <input 
+                        type="range" 
+                        id="modal-toxicity-slider" 
+                        class="toxicity-slider" 
+                        min="0" 
+                        max="100" 
+                        value="50"
+                    >
+                    <div class="slider-markers">
+                        <span>Calm</span>
+                        <span>Medium</span>
+                        <span>Intense</span>
+                    </div>
+                </div>
+                <button class="start-btn" id="apply-toxicity-btn">Apply Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
